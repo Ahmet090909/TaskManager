@@ -4,24 +4,25 @@
 
 namespace taskmgr {
 
-// Afgeleide klasse van Task
+// Concrete implementatie van een eenvoudige taak.
+// Inheritance: SimpleTask ERFT alle data en functies van Task.
 class SimpleTask : public Task {
 public:
-    // default ctor
+    // Default constructor: gebruikt de default van de base class
     SimpleTask();
 
-    // parameter ctor
+    // Parameter constructor: forwarded naar de base class constructor
     SimpleTask(const std::string& title,
                const std::string& description,
                unsigned char priority);
 
-    // copy ctor
+    // Copy constructor: forwarded naar de base class copy constructor
     SimpleTask(const SimpleTask& other);
 
-    // destructor
+    // Destructor: override (hoeft niets extra te doen)
     ~SimpleTask() override;
 
-    // overrides van pure virtual functies
+    // Concrete implementaties van de abstracte functies van Task
     TaskType type() const override;
     void print(std::ostream& os) const override;
 };

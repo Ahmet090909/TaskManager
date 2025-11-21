@@ -3,15 +3,15 @@
 namespace taskmgr {
 
     SimpleTask::SimpleTask()
-        : Task() {}
+        : Task() {} // constructor forwarding
 
     SimpleTask::SimpleTask(const std::string& title,
                            const std::string& description,
                            unsigned char priority)
-        : Task(title, description, priority) {}
+        : Task(title, description, priority) {} // constructor forwarding
 
     SimpleTask::SimpleTask(const SimpleTask& other)
-        : Task(other) {}
+        : Task(other) {} // copy ctor forwarding
 
     SimpleTask::~SimpleTask() = default;
 
@@ -20,6 +20,7 @@ namespace taskmgr {
     }
 
     void SimpleTask::print(std::ostream& os) const {
+        // Gebruikt enkel de publieke interface van Task (encapsulation blijft)
         os << "[Simple] #" << id()
            << " (prio " << static_cast<int>(priority()) << ") "
            << (isDone() ? "[DONE] " : "")

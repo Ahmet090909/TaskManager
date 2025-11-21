@@ -1,5 +1,5 @@
 #include "TaskManager.h"
-#include "SimpleTask.h"   // voor loadFromFile
+#include "SimpleTask.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -7,7 +7,7 @@
 namespace taskmgr {
 
 TaskManager::~TaskManager() {
-    // ruim alle dynamisch gealloceerde tasks op
+    // Clean up: alle dynamisch gealloceerde tasks vrijgeven
     for (Task* t : m_tasks) {
         delete t;
     }
@@ -16,6 +16,7 @@ TaskManager::~TaskManager() {
 
 void TaskManager::addTask(Task* task) {
     if (task == nullptr) {
+        // Nuttige exception ipv silent fail
         throw std::invalid_argument("TaskManager::addTask got nullptr");
     }
     m_tasks.push_back(task);
@@ -24,8 +25,8 @@ void TaskManager::addTask(Task* task) {
 bool TaskManager::removeTaskById(unsigned int id) {
     for (auto it = m_tasks.begin(); it != m_tasks.end(); ++it) {
         if (*it && (*it)->id() == id) {
-            delete *it;
-            m_tasks.erase(it);
+            delete *it;        // dynamic memory verwijderen
+            m_tasks.erase(it); // pointer uit container verwijderen
             return true;
         }
     }
@@ -38,7 +39,7 @@ Task* TaskManager::findTaskById(unsigned int id) {
             return t;
         }
     }
-    return nullptr;
+    return nullptr; // expliciet gebruik van nullptr
 }
 
 const Task* TaskManager::findTaskById(unsigned int id) const {
@@ -51,10 +52,10 @@ const Task* TaskManager::findTaskById(unsigned int id) const {
 }
 
 void TaskManager::listTasks(bool showDone) const {
-    // lambda + templatefunctie
+    // Lambda + templatefunctie: functional style iteratie over alle taken
     forEachTask([showDone](const Task& t) {
         if (!showDone && t.isDone()) {
-            return; // overslaan
+            return; // done-tasks overslaan
         }
         std::cout << t << "\n";
     });
@@ -63,12 +64,13 @@ void TaskManager::listTasks(bool showDone) const {
 void TaskManager::saveToFile(const std::string& filename) const {
     std::ofstream out(filename);
     if (!out) {
+        // Exception bij I/O fout
         throw std::runtime_error("Could not open file for writing: " + filename);
     }
 
-    // heel simpele tekstrepresentatie: type;prio;done;title;description
+    // Eenvoudig tekstformaat: type;priority;done;title;description
     forEachTask([&out](const Task& t) {
-        out << 'S' << ';'                  // S = SimpleTask
+        out << 'S' << ';'  // S = SimpleTask
             << static_cast<int>(t.priority()) << ';'
             << (t.isDone() ? 1 : 0) << ';'
             << t.title() << ';'
@@ -79,11 +81,11 @@ void TaskManager::saveToFile(const std::string& filename) const {
 void TaskManager::loadFromFile(const std::string& filename) {
     std::ifstream in(filename);
     if (!in) {
-
+        // Geen bestand? Dan laten we het stilletjes zitten.
         return;
     }
 
-    // eerst oude taken opruimen
+    // Oude taken opruimen vóór we nieuwe inladen
     for (Task* t : m_tasks) {
         delete t;
     }
@@ -96,7 +98,7 @@ void TaskManager::loadFromFile(const std::string& filename) {
         std::stringstream ss(line);
         char typeChar{};
         ss >> typeChar;
-        if (ss.peek() == ';') ss.get(); // ; weggooien
+        if (ss.peek() == ';') ss.get(); // ';' verwijderen
 
         if (typeChar == 'S') {
             std::string prioStr, doneStr, title, desc;
@@ -112,9 +114,9 @@ void TaskManager::loadFromFile(const std::string& filename) {
 
             auto* task = new SimpleTask(title, desc, prio);
             task->setDone(done);
-            addTask(task);
+            addTask(task); // hergebruik van addTask (encapsulation)
         }
-
+        // later: andere types zoals TimedTask
     }
 }
 

@@ -9,9 +9,11 @@ add_executable(TaskManager
     src/Task.cpp
     src/SimpleTask.cpp
     src/TaskManager.cpp
+    src/ConsoleUI.cpp
     include/Task.h
     include/SimpleTask.h
     include/TaskManager.h
+    include/ConsoleUI.h
 )
 
 target_include_directories(TaskManager PRIVATE include)
