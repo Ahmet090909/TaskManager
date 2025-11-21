@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
-
-project(taskmanager LANGUAGES CXX)
+project(TaskManager LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(taskmanager main.cpp)
-
-include(GNUInstallDirs)
-install(TARGETS taskmanager
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+add_executable(TaskManager
+    src/main.cpp
+    src/Task.cpp
+    src/SimpleTask.cpp
+    include/Task.h
+    include/SimpleTask.h
 )
+
+target_include_directories(TaskManager PRIVATE include)
