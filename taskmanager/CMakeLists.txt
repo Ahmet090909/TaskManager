@@ -8,10 +8,12 @@ add_executable(TaskManager
     src/main.cpp
     src/Task.cpp
     src/SimpleTask.cpp
+    src/TimedTask.cpp
     src/TaskManager.cpp
     src/ConsoleUI.cpp
     include/Task.h
     include/SimpleTask.h
+    include/TimedTask.h
     include/TaskManager.h
     include/ConsoleUI.h
 )
