@@ -1,16 +1,33 @@
 #include <iostream>
+#include "TaskManager.h"
 #include "SimpleTask.h"
 
 int main() {
-    taskmgr::SimpleTask t1("C++ opdracht", "Task manager in OOP bouwen", 8);
-    taskmgr::SimpleTask t2("Test taak", "Even inheritance testen", 5);
+    taskmgr::TaskManager manager;
 
-    std::cout << t1 << "\n";
-    std::cout << t2 << "\n";
 
-    t1.setDone(true);
-    std::cout << "Na done:\n";
-    std::cout << t1 << "\n";
+    manager.addTask(new taskmgr::SimpleTask(
+        "C++ opdracht", "Task manager project afwerken", 8
+        ));
+    manager.addTask(new taskmgr::SimpleTask(
+        "Afwassen", "Even de keuken opruimen", 3
+        ));
+
+    std::cout << "Alle taken:\n";
+    manager.listTasks();
+
+
+    taskmgr::Task* first = manager.findTaskById(1);
+    if (first != nullptr) {
+        first->setDone(true);
+    }
+
+    std::cout << "\nNiet-afgewerkte taken:\n";
+    manager.listTasks(false);
+
+    // save naar bestand
+    manager.saveToFile("tasks.txt");
+    std::cout << "\nTaken opgeslagen in tasks.txt\n";
 
     return 0;
 }

@@ -8,8 +8,10 @@ add_executable(TaskManager
     src/main.cpp
     src/Task.cpp
     src/SimpleTask.cpp
+    src/TaskManager.cpp
     include/Task.h
     include/SimpleTask.h
+    include/TaskManager.h
 )
 
 target_include_directories(TaskManager PRIVATE include)
