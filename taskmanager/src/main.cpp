@@ -1,14 +1,12 @@
-#include <iostream>
-#include "TaskManager.h"
-#include "ConsoleUI.h"
+#include <QApplication>
+#include "MainWindow.h"
 
-int main() {
-    try {
-        taskmgr::TaskManager manager;      // business logica
-        taskmgr::ui::ConsoleUI::run(manager); // UI-laag
-    } catch (const std::exception& ex) {
-        std::cerr << "Fatal error: " << ex.what() << '\n';
-        return 1;
-    }
-    return 0;
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    taskmgr::ui::MainWindow w;
+    w.show();
+
+    return app.exec();
 }
