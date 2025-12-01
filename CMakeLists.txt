@@ -1,12 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 project(TaskManager LANGUAGES CXX)
-cmake_minimum_required(VERSION 3.16)
-project(TaskManager LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# ==== Qt Widgets ====
+# Qt Widgets zoeken
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
@@ -21,14 +19,15 @@ add_executable(TaskManager
     src/SimpleTask.cpp
     src/TimedTask.cpp
     src/TaskManager.cpp
+    src/MainWIndow.cpp
+    src/MainWindow.ui
     src/ConsoleUI.cpp
-    src/MainWindow.cpp
     include/Task.h
     include/SimpleTask.h
     include/TimedTask.h
     include/TaskManager.h
-    include/ConsoleUI.h
     include/MainWindow.h
+    include/ConsoleUI.h
 )
 
 target_include_directories(TaskManager PRIVATE include)

@@ -1,0 +1,14 @@
+# ninja log v6
+19	1490	7856337211810488	TaskManager_autogen/timestamp	fe5cd3c6bd34d83e
+19	1490	7856337211810488	TaskManager_autogen/mocs_compilation.cpp	fe5cd3c6bd34d83e
+19	1490	7856337211810488	C:/Users/ahmet/OneDrive/PBEAI2/c++/opdracht/TaskManager/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/TaskManager_autogen/timestamp	fe5cd3c6bd34d83e
+19	1490	7856337211810488	C:/Users/ahmet/OneDrive/PBEAI2/c++/opdracht/TaskManager/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/TaskManager_autogen/mocs_compilation.cpp	fe5cd3c6bd34d83e
+1533	3308	7856337213472562	CMakeFiles/TaskManager.dir/src/TimedTask.cpp.obj	1c3f664a6b3780d5
+1561	3319	7856337213752866	CMakeFiles/TaskManager.dir/src/ConsoleUI.cpp.obj	fbfec3b97d0b49e1
+1525	3348	7856337213387163	CMakeFiles/TaskManager.dir/src/SimpleTask.cpp.obj	3b79c4bf420a9102
+1518	3362	7856337213307149	CMakeFiles/TaskManager.dir/src/Task.cpp.obj	3511d0973bada6e0
+1542	3554	7856337213562831	CMakeFiles/TaskManager.dir/src/TaskManager.cpp.obj	3d41ada74affc254
+1504	7240	7856337213177150	CMakeFiles/TaskManager.dir/TaskManager_autogen/mocs_compilation.cpp.obj	e13e7a9214dd33e2
+1510	7308	7856337213237283	CMakeFiles/TaskManager.dir/src/main.cpp.obj	a1dfa3920f72567f
+1552	8785	7856337213652966	CMakeFiles/TaskManager.dir/src/MainWIndow.cpp.obj	52baf165e638651
+8786	9276	7856337285995245	TaskManager.exe	4410d5701b873419

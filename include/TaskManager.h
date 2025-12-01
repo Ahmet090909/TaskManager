@@ -6,6 +6,7 @@
 #include "Task.h"
 
 namespace taskmgr {
+// Klasse die alle taken beheert: toevoegen, verwijderen, opslaan en laden.
 
 class TaskManager {
     std::vector<Task*> m_tasks;
