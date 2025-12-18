@@ -1,3 +1,11 @@
+// Vraag 20: useful member function
+// Waar: ConsoleUI::run() toont scheiding tussen UI en logica.
+
+// Vraag 27: namespaces
+// Waar: namespace taskmgr::ui wordt gebruikt.
+
+
+
 #include "ConsoleUI.h"
 #include "SimpleTask.h"
 #include "TimedTask.h"
