@@ -1,3 +1,13 @@
+// Vraag 14: copy constructor
+// Waar: TimedTask(const TimedTask&)
+
+// Vraag 15: destructor
+// Waar: ~TimedTask()
+
+// Vraag 16: member initialization list
+// Waar: m_dueDate wordt geïnitialiseerd in initializer list.
+
+
 #include "TimedTask.h"
 
 namespace taskmgr {
