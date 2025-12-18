@@ -1,3 +1,7 @@
+
+// Vraag 18: dynamic polymorphism
+// Waar: override van virtuele functies type() en print().
+
 #include "SimpleTask.h"
 
 namespace taskmgr {

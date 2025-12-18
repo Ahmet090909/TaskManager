@@ -1,3 +1,16 @@
+// Vraag 12: default constructor
+// Waar: SimpleTask()
+
+// Vraag 13: parameterized constructor
+// Waar: SimpleTask(const std::string&, const std::string&, unsigned char)
+
+// Vraag 14: copy constructor
+// Waar: SimpleTask(const SimpleTask&)
+
+// Vraag 18: inheritance + polymorphism
+// Waar: SimpleTask erft van Task en override type() en print().
+
+
 #pragma once
 
 #include "Task.h"
