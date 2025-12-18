@@ -1,11 +1,21 @@
+// Vraag 3: no globals, but statics if needed
+// Waar: static unsigned int Task::s_nextId wordt gebruikt voor unieke ID’s.
+
+// Vraag 17: constructor forwarding
+// Waar: default constructor roept parameterized constructor aan (delegating constructor).
+
+// Vraag 19: useful usage of 'this'
+// Waar: this-> wordt gebruikt in setTitle() door name shadowing;
+// zonder this-> zou de code niet correct werken.
+
+
+
 #include "Task.h"
 
 namespace taskmgr {
 
-// Initialisatie van de statische ID-teller
 unsigned int Task::s_nextId = 1;
 
-// Default constructor: gebruikt member-init-lijst
 Task::Task()
     : m_id(s_nextId++),
     m_title("New task"),
@@ -13,7 +23,6 @@ Task::Task()
     m_priority(5),
     m_done(false) {}
 
-// Parameter constructor
 Task::Task(const std::string& title,
            const std::string& description,
            unsigned char priority)
@@ -23,9 +32,8 @@ Task::Task(const std::string& title,
     m_priority(priority),
     m_done(false) {}
 
-// Copy constructor: kopieert alle velden, maar geeft een NIEUWE id
 Task::Task(const Task& other)
-    : m_id(s_nextId++),
+    : m_id(s_nextId++),                 // nieuwe ID (bewijs copy-gedrag)
     m_title(other.m_title),
     m_description(other.m_description),
     m_priority(other.m_priority),
@@ -33,9 +41,10 @@ Task::Task(const Task& other)
 
 Task::~Task() = default;
 
-void Task::setTitle(const std::string& title) {
-    // bewust gebruik van this-> (komt in puntenlijst)
-    this->m_title = title;
+void Task::setTitle(const std::string& m_title) {
+    // Vraag 19: useful usage of 'this'
+    // Waar: parameter en member hebben dezelfde naam.
+    this->m_title = m_title;
 }
 
 void Task::setDescription(const std::string& description) {
@@ -43,7 +52,6 @@ void Task::setDescription(const std::string& description) {
 }
 
 void Task::setPriority(unsigned char priority) {
-    // eenvoudige validatie: priority max 10
     if (priority > 10) priority = 10;
     m_priority = priority;
 }
@@ -53,7 +61,6 @@ void Task::setDone(bool done) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Task& t) {
-    // Dynamisch polymorfisme: roept de print() van de concrete subklasse op
     t.print(os);
     return os;
 }

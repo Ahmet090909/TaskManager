@@ -1,3 +1,32 @@
+// Vraag 12: at least 2 default constructors
+// Waar: Task() is een default constructor.
+
+// Vraag 13: at least 2 parameterized constructors
+// Waar: Task(const std::string&, const std::string&, unsigned char)
+
+// Vraag 14: at least 2 copy constructors
+// Waar: Task(const Task&)
+
+// Vraag 15: at least 2 destructors
+// Waar: virtual ~Task()
+
+// Vraag 16: member initialization in constructors
+// Waar: alle constructors gebruiken initializer lists (: m_id(...), m_title(...), ...)
+
+// Vraag 18: useful proven (dynamic) polymorphism
+// Waar: Task is een abstracte base class met pure virtual functies type() en print().
+
+// Vraag 23: useful getters and setters
+// Waar: title(), setTitle(), description(), setDescription(), isDone(), setDone()
+
+// Vraag 24: correct usage of inline function
+// Waar: inline getters in de header.
+
+// Vraag 26: useful friend function
+// Waar: operator<< is gedeclareerd als friend van Task.
+
+
+
 #pragma once
 
 #include <string>
