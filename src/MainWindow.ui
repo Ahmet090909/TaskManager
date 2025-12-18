@@ -6,247 +6,461 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>1100</width>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Taakbeheer</string>
   </property>
+
+  <!-- Consistente professionele dark UI -->
   <property name="styleSheet">
    <string notr="true">
-QMainWindow {
-    background-color: #1e1e1e;
-    color: #f0f0f0;
+QMainWindow, QWidget {
+  background: #0f172a;
+  color: #e5e7eb;
+  font-size: 13px;
 }
 
-/* Links: lijst met taken */
-QListWidget#taskListWidget {
-    background-color: #252526;
-    color: #f0f0f0;
-    border: 1px solid #3c3c3c;
-    border-radius: 6px;
-    padding: 4px;
+QGroupBox {
+  border: 1px solid #243044;
+  border-radius: 10px;
+  margin-top: 14px;
+  padding: 10px;
+  background: #111c33;
 }
-QListWidget#taskListWidget::item {
-    padding: 4px 6px;
-}
-QListWidget#taskListWidget::item:selected {
-    background-color: #0078d7;
-    color: white;
-}
-
-/* Labels */
-QLabel {
-    color: #f0f0f0;
-    font-weight: 500;
+QGroupBox::title {
+  subcontrol-origin: margin;
+  subcontrol-position: top left;
+  padding: 0 8px;
+  color: #cbd5e1;
+  font-weight: 600;
 }
 
-/* Invoervelden rechts */
-QLineEdit, QTextEdit, QSpinBox {
-    background-color: #2d2d30;
-    color: #f0f0f0;
-    border: 1px solid #3c3c3c;
-    border-radius: 4px;
-    padding: 4px;
+QLineEdit, QTextEdit, QSpinBox, QListWidget {
+  background: #0b1222;
+  border: 1px solid #25314a;
+  border-radius: 10px;
+  padding: 10px;
+  selection-background-color: #2563eb;
 }
-QTextEdit {
-    min-height: 80px;
+QTextEdit { padding: 10px; }
+QSpinBox { padding-right: 30px; }
+
+QListWidget::item {
+  padding: 8px;
+  border-radius: 8px;
+}
+QListWidget::item:selected {
+  background: #1d4ed8;
+  color: #ffffff;
 }
 
-/* Knoppen algemeen */
 QPushButton {
-    background-color: #0078d7;
-    color: white;
-    border-radius: 6px;
-    padding: 6px 12px;
-    border: none;
-    font-weight: 500;
+  border: 1px solid #2b3a57;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #0b1222;
 }
-QPushButton:hover {
-    background-color: #1890ff;
-}
-QPushButton:pressed {
-    background-color: #005a9e;
+QPushButton:hover { background: #111c33; }
+QPushButton:pressed { background: #0a1020; }
+
+QPushButton#addSimpleButton { background: #0b3b8a; border-color: #1d4ed8; }
+QPushButton#addTimedButton  { background: #0b3b8a; border-color: #1d4ed8; }
+QPushButton#markDoneButton  { background: #065f46; border-color: #10b981; }
+QPushButton#removeButton    { background: #7f1d1d; border-color: #ef4444; }
+QPushButton#saveButton      { background: #334155; border-color: #475569; }
+QPushButton#loadButton      { background: #334155; border-color: #475569; }
+
+QLabel {
+  color: #cbd5e1;
 }
 
-/* Specifieke knoppen met eigen kleur */
-QPushButton#removeButton {
-    background-color: #d83b01;
-}
-QPushButton#removeButton:hover {
-    background-color: #f7630c;
-}
-
-QPushButton#markDoneButton {
-    background-color: #107c10;
-}
-QPushButton#markDoneButton:hover {
-    background-color: #16a316;
-}
-
-QPushButton#saveButton {
-    background-color: #605e5c;
-}
-QPushButton#saveButton:hover {
-    background-color: #7a7574;
-}
-
-QPushButton#loadButton {
-    background-color: #2b88d8;
-}
-QPushButton#loadButton:hover {
-    background-color: #3aa0ff;
-}
-
-/* Menubalk en statusbalk */
-QMenuBar {
-    background-color: #2d2d30;
-    color: #f0f0f0;
-}
-QStatusBar {
-    background-color: #2d2d30;
-    color: #f0f0f0;
+QCheckBox { spacing: 8px; }
+QCheckBox::indicator {
+  width: 16px; height: 16px;
 }
    </string>
   </property>
+
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_main">
+   <layout class="QVBoxLayout" name="rootLayout">
+    <property name="leftMargin">
+     <number>14</number>
+    </property>
+    <property name="topMargin">
+     <number>14</number>
+    </property>
+    <property name="rightMargin">
+     <number>14</number>
+    </property>
+    <property name="bottomMargin">
+     <number>14</number>
+    </property>
+    <property name="spacing">
+     <number>12</number>
+    </property>
+
+    <!-- Header -->
     <item>
-     <widget class="QListWidget" name="taskListWidget"/>
-    </item>
-    <item>
-     <widget class="QWidget" name="rightPanel" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_right">
-       <!-- Titel -->
+     <widget class="QFrame" name="headerCard">
+      <property name="styleSheet">
+       <string notr="true">
+QFrame#headerCard {
+  background: #111c33;
+  border: 1px solid #243044;
+  border-radius: 12px;
+}
+       </string>
+      </property>
+      <layout class="QHBoxLayout" name="headerLayout">
+       <property name="leftMargin">
+        <number>14</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>14</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
+
        <item>
-        <widget class="QLabel" name="labelTitle">
+        <widget class="QLabel" name="appTitle">
          <property name="text">
-          <string>Titel</string>
+          <string>Taakbeheer</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+QLabel#appTitle { font-size: 18px; font-weight: 700; color: #ffffff; }
+          </string>
          </property>
         </widget>
        </item>
+
        <item>
-        <widget class="QLineEdit" name="titleEdit"/>
-       </item>
-       <!-- Beschrijving -->
-       <item>
-        <widget class="QLabel" name="labelDescription">
-         <property name="text">
-          <string>Beschrijving</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="descriptionEdit"/>
-       </item>
-       <!-- Prioriteit -->
-       <item>
-        <widget class="QLabel" name="labelPriority">
-         <property name="text">
-          <string>Prioriteit (0-10)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="prioritySpin">
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>10</number>
-         </property>
-         <property name="value">
-          <number>5</number>
-         </property>
-        </widget>
-       </item>
-       <!-- Vervaldatum -->
-       <item>
-        <widget class="QLabel" name="labelDueDate">
-         <property name="text">
-          <string>Vervaldatum (JJJJ-MM-DD UU:MM)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="dueDateEdit"/>
-       </item>
-       <!-- Knoppen -->
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_buttons">
-         <item>
-          <widget class="QPushButton" name="addSimpleButton">
-           <property name="text">
-            <string>Voeg simpele taak toe</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="addTimedButton">
-           <property name="text">
-            <string>Voeg timed taak toe</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="removeButton">
-           <property name="text">
-            <string>Verwijderen</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="markDoneButton">
-           <property name="text">
-            <string>Markeer klaar</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="saveButton">
-           <property name="text">
-            <string>Opslaan</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="loadButton">
-           <property name="text">
-            <string>Laden</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
+        <spacer name="headerSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
+
+       <item>s
+        <widget class="QLabel" name="hintLabel">
+         <property name="text">
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+QLabel#hintLabel { color: #94a3b8; }
+          </string>
+         </property>
+        </widget>
+       </item>
+
       </layout>
      </widget>
     </item>
+
+    <!-- Main content -->
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+
+      <!-- LEFT: Takenlijst -->
+      <widget class="QWidget" name="leftPane">
+       <layout class="QVBoxLayout" name="leftLayout">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="tasksGroup">
+          <property name="title">
+           <string>Takenlijst</string>
+          </property>
+          <layout class="QVBoxLayout" name="tasksLayout">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+
+           <item>
+            <widget class="QLineEdit" name="searchEdit">
+             <property name="placeholderText">
+              <string>Zoeken…</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+
+           <item>
+            <widget class="QListWidget" name="taskListWidget">
+             <property name="minimumWidth">
+              <number>360</number>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+            </widget>
+           </item>
+
+           <item>
+            <layout class="QHBoxLayout" name="tasksBottomRow">
+             <item>
+              <widget class="QCheckBox" name="showDoneCheck">
+               <property name="text">
+                <string>Toon klaar</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="tasksBottomSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+
+      <!-- RIGHT: Invoer + acties -->
+      <widget class="QWidget" name="rightPane">
+       <layout class="QVBoxLayout" name="rightLayout">
+        <property name="spacing">
+         <number>12</number>
+        </property>
+
+        <item>
+         <widget class="QGroupBox" name="createGroup">
+          <property name="title">
+           <string>Nieuwe taak</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <property name="horizontalSpacing">
+            <number>12</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>12</number>
+           </property>
+
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelTitle">
+             <property name="text">
+              <string>Titel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="titleEdit">
+             <property name="placeholderText">
+              <string>Bijv. “Verslag afwerken”</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelDesc">
+             <property name="text">
+              <string>Beschrijving</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QTextEdit" name="descriptionEdit">
+             <property name="minimumHeight">
+              <number>170</number>
+             </property>
+             <property name="placeholderText">
+              <string>Wat moet er precies gebeuren?</string>
+             </property>
+            </widget>
+           </item>
+
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelPrio">
+             <property name="text">
+              <string>Prioriteit</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="prioritySpin">
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="3" column="0">
+            <widget class="QLabel" name="labelDue">
+             <property name="text">
+              <string>Vervaldatum</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="dueDateEdit">
+             <property name="placeholderText">
+              <string>YYYY-MM-DD HH:MM (alleen timed)</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+
+          </layout>
+         </widget>
+        </item>
+
+        <item>
+         <widget class="QGroupBox" name="actionsGroup">
+          <property name="title">
+           <string>Acties</string>
+          </property>
+          <layout class="QGridLayout" name="actionsGrid">
+           <property name="horizontalSpacing">
+            <number>12</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>12</number>
+           </property>
+
+           <item row="0" column="0">
+            <widget class="QPushButton" name="addSimpleButton">
+             <property name="text">
+              <string>Voeg simpele taak toe</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="0" column="1">
+            <widget class="QPushButton" name="addTimedButton">
+             <property name="text">
+              <string>Voeg timed taak toe</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="1" column="0">
+            <widget class="QPushButton" name="markDoneButton">
+             <property name="text">
+              <string>Markeer klaar</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="1" column="1">
+            <widget class="QPushButton" name="removeButton">
+             <property name="text">
+              <string>Verwijderen</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="2" column="0">
+            <widget class="QPushButton" name="saveButton">
+             <property name="text">
+              <string>Opslaan</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+           <item row="2" column="1">
+            <widget class="QPushButton" name="loadButton">
+             <property name="text">
+              <string>Laden</string>
+             </property>
+             <property name="minimumHeight">
+              <number>42</number>
+             </property>
+            </widget>
+           </item>
+
+          </layout>
+         </widget>
+        </item>
+
+        <item>
+         <spacer name="rightSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+
+       </layout>
+      </widget>
+
+     </widget>
+    </item>
+
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>900</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
+
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>

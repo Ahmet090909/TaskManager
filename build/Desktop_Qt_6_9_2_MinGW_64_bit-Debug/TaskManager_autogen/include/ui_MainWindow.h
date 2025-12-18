@@ -11,15 +11,20 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
@@ -31,234 +36,321 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout_main;
+    QVBoxLayout *rootLayout;
+    QFrame *headerCard;
+    QHBoxLayout *headerLayout;
+    QLabel *appTitle;
+    QSpacerItem *headerSpacer;
+    QLabel *hintLabel;
+    QSplitter *splitter;
+    QWidget *leftPane;
+    QVBoxLayout *leftLayout;
+    QGroupBox *tasksGroup;
+    QVBoxLayout *tasksLayout;
+    QLineEdit *searchEdit;
     QListWidget *taskListWidget;
-    QWidget *rightPanel;
-    QVBoxLayout *verticalLayout_right;
+    QHBoxLayout *tasksBottomRow;
+    QCheckBox *showDoneCheck;
+    QSpacerItem *tasksBottomSpacer;
+    QWidget *rightPane;
+    QVBoxLayout *rightLayout;
+    QGroupBox *createGroup;
+    QFormLayout *formLayout;
     QLabel *labelTitle;
     QLineEdit *titleEdit;
-    QLabel *labelDescription;
+    QLabel *labelDesc;
     QTextEdit *descriptionEdit;
-    QLabel *labelPriority;
+    QLabel *labelPrio;
     QSpinBox *prioritySpin;
-    QLabel *labelDueDate;
+    QLabel *labelDue;
     QLineEdit *dueDateEdit;
-    QHBoxLayout *horizontalLayout_buttons;
+    QGroupBox *actionsGroup;
+    QGridLayout *actionsGrid;
     QPushButton *addSimpleButton;
     QPushButton *addTimedButton;
-    QPushButton *removeButton;
     QPushButton *markDoneButton;
+    QPushButton *removeButton;
     QPushButton *saveButton;
     QPushButton *loadButton;
-    QSpacerItem *verticalSpacer;
-    QMenuBar *menubar;
+    QSpacerItem *rightSpacer;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(900, 600);
+        MainWindow->resize(1100, 640);
         MainWindow->setStyleSheet(QString::fromUtf8("\n"
-"QMainWindow {\n"
-"    background-color: #1e1e1e;\n"
-"    color: #f0f0f0;\n"
+"QMainWindow, QWidget {\n"
+"  background: #0f172a;\n"
+"  color: #e5e7eb;\n"
+"  font-size: 13px;\n"
 "}\n"
 "\n"
-"/* Links: lijst met taken */\n"
-"QListWidget#taskListWidget {\n"
-"    background-color: #252526;\n"
-"    color: #f0f0f0;\n"
-"    border: 1px solid #3c3c3c;\n"
-"    border-radius: 6px;\n"
-"    padding: 4px;\n"
+"QGroupBox {\n"
+"  border: 1px solid #243044;\n"
+"  border-radius: 10px;\n"
+"  margin-top: 14px;\n"
+"  padding: 10px;\n"
+"  background: #111c33;\n"
 "}\n"
-"QListWidget#taskListWidget::item {\n"
-"    padding: 4px 6px;\n"
-"}\n"
-"QListWidget#taskListWidget::item:selected {\n"
-"    background-color: #0078d7;\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"/* Labels */\n"
-"QLabel {\n"
-"    color: #f0f0f0;\n"
-"    font-weight: 500;\n"
+"QGroupBox::title {\n"
+"  subcontrol-origin: margin;\n"
+"  subcontrol-position: top left;\n"
+"  padding: 0 8px;\n"
+"  color: #cbd5e1;\n"
+"  font-weight: 600;\n"
 "}\n"
 "\n"
-"/* Invoervelden rechts */\n"
-"QLineEdit, QTextEdit, QSpinBox {\n"
-"    background-color: #2d2d30;\n"
-"    color: #f0f0f0;\n"
-"    border: 1px solid #3c3c3c;\n"
-"    border-radius: 4px;\n"
-"    padding: 4px;\n"
+"QLineEdit, QTextEdit, QSpinBox, QListWidget {\n"
+"  background: #0b1222;\n"
+"  border: 1px solid #25314a;\n"
+"  border-radius: 10px;\n"
+"  padding: 10px;\n"
+"  selection-background-color: #2563eb;\n"
 "}\n"
-"QTextEdit {\n"
-"    min-height: 80px;\n"
+"QTextEdit { padding: 10px; }\n"
+"QSpinBox { padding-right: 30px; }\n"
+"\n"
+"QListWidget::item {\n"
+"  padding: 8px;\n"
+"  border-radius: 8px;\n"
+"}\n"
+"QListWidget::item:selected {\n"
+"  background: #1d4ed8;\n"
+"  color: #ffffff;\n"
 "}\n"
 "\n"
-"/* Knoppen algemeen */\n"
 "QPushButton {\n"
-"    background-color: #0078d7;\n"
-"    color: white;\n"
-"    border-radius: 6px;\n"
-"    padding: 6px 12px;\n"
-"    border:"
-                        " none;\n"
-"    font-weight: 500;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #1890ff;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #005a9e;\n"
-"}\n"
-"\n"
-"/* Specifieke knoppen met eigen kleur */\n"
-"QPushButton#removeButton {\n"
-"    background-color: #d83b01;\n"
-"}\n"
-"QPushButton#removeButton:hover {\n"
-"    background-color: #f7630c;\n"
-"}\n"
-"\n"
-"QPushButton#markDoneButton {\n"
-"    background-color: #107c10;\n"
-"}\n"
-"QPushButton#markDoneButton:hover {\n"
-"    background-color: #16a316;\n"
-"}\n"
-"\n"
-"QPushButton#saveButton {\n"
-"    background-color: #605e5c;\n"
-"}\n"
-"QPushButton#saveButton:hover {\n"
-"    background-color: #7a7574;\n"
-"}\n"
-"\n"
-"QPushButton#loadButton {\n"
-"    background-color: #2b88d8;\n"
-"}\n"
-"QPushButton#loadButton:hover {\n"
-"    background-color: #3aa0ff;\n"
-"}\n"
-"\n"
-"/* Menubalk en statusbalk */\n"
-"QMenuBar {\n"
-"    background-color: #2d2d30;\n"
-"    color: #f0f0f0;\n"
-"}\n"
-"QStatusBar {\n"
-"    background-color: #2d2d30;\n"
-"    color: #f0f0f0;"
+"  border: 1px solid #2b3a57;\n"
+"  border-radius: 10px;\n"
+"  padding: 10px 14px;\n"
+"  background: #0b1222;\n"
+"}"
                         "\n"
+"QPushButton:hover { background: #111c33; }\n"
+"QPushButton:pressed { background: #0a1020; }\n"
+"\n"
+"QPushButton#addSimpleButton { background: #0b3b8a; border-color: #1d4ed8; }\n"
+"QPushButton#addTimedButton  { background: #0b3b8a; border-color: #1d4ed8; }\n"
+"QPushButton#markDoneButton  { background: #065f46; border-color: #10b981; }\n"
+"QPushButton#removeButton    { background: #7f1d1d; border-color: #ef4444; }\n"
+"QPushButton#saveButton      { background: #334155; border-color: #475569; }\n"
+"QPushButton#loadButton      { background: #334155; border-color: #475569; }\n"
+"\n"
+"QLabel {\n"
+"  color: #cbd5e1;\n"
+"}\n"
+"\n"
+"QCheckBox { spacing: 8px; }\n"
+"QCheckBox::indicator {\n"
+"  width: 16px; height: 16px;\n"
 "}\n"
 "   "));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        horizontalLayout_main = new QHBoxLayout(centralwidget);
-        horizontalLayout_main->setObjectName("horizontalLayout_main");
-        taskListWidget = new QListWidget(centralwidget);
+        rootLayout = new QVBoxLayout(centralwidget);
+        rootLayout->setSpacing(12);
+        rootLayout->setObjectName("rootLayout");
+        rootLayout->setContentsMargins(14, 14, 14, 14);
+        headerCard = new QFrame(centralwidget);
+        headerCard->setObjectName("headerCard");
+        headerCard->setStyleSheet(QString::fromUtf8("\n"
+"QFrame#headerCard {\n"
+"  background: #111c33;\n"
+"  border: 1px solid #243044;\n"
+"  border-radius: 12px;\n"
+"}\n"
+"       "));
+        headerLayout = new QHBoxLayout(headerCard);
+        headerLayout->setObjectName("headerLayout");
+        headerLayout->setContentsMargins(14, 12, 14, 12);
+        appTitle = new QLabel(headerCard);
+        appTitle->setObjectName("appTitle");
+        appTitle->setStyleSheet(QString::fromUtf8("\n"
+"QLabel#appTitle { font-size: 18px; font-weight: 700; color: #ffffff; }\n"
+"          "));
+
+        headerLayout->addWidget(appTitle);
+
+        headerSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        headerLayout->addItem(headerSpacer);
+
+        hintLabel = new QLabel(headerCard);
+        hintLabel->setObjectName("hintLabel");
+        hintLabel->setStyleSheet(QString::fromUtf8("\n"
+"QLabel#hintLabel { color: #94a3b8; }\n"
+"          "));
+
+        headerLayout->addWidget(hintLabel);
+
+
+        rootLayout->addWidget(headerCard);
+
+        splitter = new QSplitter(centralwidget);
+        splitter->setObjectName("splitter");
+        splitter->setOrientation(Qt::Horizontal);
+        leftPane = new QWidget(splitter);
+        leftPane->setObjectName("leftPane");
+        leftLayout = new QVBoxLayout(leftPane);
+        leftLayout->setSpacing(10);
+        leftLayout->setObjectName("leftLayout");
+        leftLayout->setContentsMargins(0, 0, 0, 0);
+        tasksGroup = new QGroupBox(leftPane);
+        tasksGroup->setObjectName("tasksGroup");
+        tasksLayout = new QVBoxLayout(tasksGroup);
+        tasksLayout->setSpacing(10);
+        tasksLayout->setObjectName("tasksLayout");
+        searchEdit = new QLineEdit(tasksGroup);
+        searchEdit->setObjectName("searchEdit");
+        searchEdit->setClearButtonEnabled(true);
+
+        tasksLayout->addWidget(searchEdit);
+
+        taskListWidget = new QListWidget(tasksGroup);
         taskListWidget->setObjectName("taskListWidget");
+        taskListWidget->setMinimumWidth(360);
+        taskListWidget->setAlternatingRowColors(true);
+        taskListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
-        horizontalLayout_main->addWidget(taskListWidget);
+        tasksLayout->addWidget(taskListWidget);
 
-        rightPanel = new QWidget(centralwidget);
-        rightPanel->setObjectName("rightPanel");
-        verticalLayout_right = new QVBoxLayout(rightPanel);
-        verticalLayout_right->setObjectName("verticalLayout_right");
-        labelTitle = new QLabel(rightPanel);
+        tasksBottomRow = new QHBoxLayout();
+        tasksBottomRow->setObjectName("tasksBottomRow");
+        showDoneCheck = new QCheckBox(tasksGroup);
+        showDoneCheck->setObjectName("showDoneCheck");
+        showDoneCheck->setChecked(true);
+
+        tasksBottomRow->addWidget(showDoneCheck);
+
+        tasksBottomSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        tasksBottomRow->addItem(tasksBottomSpacer);
+
+
+        tasksLayout->addLayout(tasksBottomRow);
+
+
+        leftLayout->addWidget(tasksGroup);
+
+        splitter->addWidget(leftPane);
+        rightPane = new QWidget(splitter);
+        rightPane->setObjectName("rightPane");
+        rightLayout = new QVBoxLayout(rightPane);
+        rightLayout->setSpacing(12);
+        rightLayout->setObjectName("rightLayout");
+        rightLayout->setContentsMargins(0, 0, 0, 0);
+        createGroup = new QGroupBox(rightPane);
+        createGroup->setObjectName("createGroup");
+        formLayout = new QFormLayout(createGroup);
+        formLayout->setObjectName("formLayout");
+        formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+        formLayout->setHorizontalSpacing(12);
+        formLayout->setVerticalSpacing(12);
+        labelTitle = new QLabel(createGroup);
         labelTitle->setObjectName("labelTitle");
 
-        verticalLayout_right->addWidget(labelTitle);
+        formLayout->setWidget(0, QFormLayout::ItemRole::LabelRole, labelTitle);
 
-        titleEdit = new QLineEdit(rightPanel);
+        titleEdit = new QLineEdit(createGroup);
         titleEdit->setObjectName("titleEdit");
+        titleEdit->setClearButtonEnabled(true);
 
-        verticalLayout_right->addWidget(titleEdit);
+        formLayout->setWidget(0, QFormLayout::ItemRole::FieldRole, titleEdit);
 
-        labelDescription = new QLabel(rightPanel);
-        labelDescription->setObjectName("labelDescription");
+        labelDesc = new QLabel(createGroup);
+        labelDesc->setObjectName("labelDesc");
 
-        verticalLayout_right->addWidget(labelDescription);
+        formLayout->setWidget(1, QFormLayout::ItemRole::LabelRole, labelDesc);
 
-        descriptionEdit = new QTextEdit(rightPanel);
+        descriptionEdit = new QTextEdit(createGroup);
         descriptionEdit->setObjectName("descriptionEdit");
+        descriptionEdit->setMinimumHeight(170);
 
-        verticalLayout_right->addWidget(descriptionEdit);
+        formLayout->setWidget(1, QFormLayout::ItemRole::FieldRole, descriptionEdit);
 
-        labelPriority = new QLabel(rightPanel);
-        labelPriority->setObjectName("labelPriority");
+        labelPrio = new QLabel(createGroup);
+        labelPrio->setObjectName("labelPrio");
 
-        verticalLayout_right->addWidget(labelPriority);
+        formLayout->setWidget(2, QFormLayout::ItemRole::LabelRole, labelPrio);
 
-        prioritySpin = new QSpinBox(rightPanel);
+        prioritySpin = new QSpinBox(createGroup);
         prioritySpin->setObjectName("prioritySpin");
         prioritySpin->setMinimum(0);
         prioritySpin->setMaximum(10);
         prioritySpin->setValue(5);
 
-        verticalLayout_right->addWidget(prioritySpin);
+        formLayout->setWidget(2, QFormLayout::ItemRole::FieldRole, prioritySpin);
 
-        labelDueDate = new QLabel(rightPanel);
-        labelDueDate->setObjectName("labelDueDate");
+        labelDue = new QLabel(createGroup);
+        labelDue->setObjectName("labelDue");
 
-        verticalLayout_right->addWidget(labelDueDate);
+        formLayout->setWidget(3, QFormLayout::ItemRole::LabelRole, labelDue);
 
-        dueDateEdit = new QLineEdit(rightPanel);
+        dueDateEdit = new QLineEdit(createGroup);
         dueDateEdit->setObjectName("dueDateEdit");
+        dueDateEdit->setClearButtonEnabled(true);
 
-        verticalLayout_right->addWidget(dueDateEdit);
+        formLayout->setWidget(3, QFormLayout::ItemRole::FieldRole, dueDateEdit);
 
-        horizontalLayout_buttons = new QHBoxLayout();
-        horizontalLayout_buttons->setObjectName("horizontalLayout_buttons");
-        addSimpleButton = new QPushButton(rightPanel);
+
+        rightLayout->addWidget(createGroup);
+
+        actionsGroup = new QGroupBox(rightPane);
+        actionsGroup->setObjectName("actionsGroup");
+        actionsGrid = new QGridLayout(actionsGroup);
+        actionsGrid->setObjectName("actionsGrid");
+        actionsGrid->setHorizontalSpacing(12);
+        actionsGrid->setVerticalSpacing(12);
+        addSimpleButton = new QPushButton(actionsGroup);
         addSimpleButton->setObjectName("addSimpleButton");
+        addSimpleButton->setMinimumHeight(42);
 
-        horizontalLayout_buttons->addWidget(addSimpleButton);
+        actionsGrid->addWidget(addSimpleButton, 0, 0, 1, 1);
 
-        addTimedButton = new QPushButton(rightPanel);
+        addTimedButton = new QPushButton(actionsGroup);
         addTimedButton->setObjectName("addTimedButton");
+        addTimedButton->setMinimumHeight(42);
 
-        horizontalLayout_buttons->addWidget(addTimedButton);
+        actionsGrid->addWidget(addTimedButton, 0, 1, 1, 1);
 
-        removeButton = new QPushButton(rightPanel);
-        removeButton->setObjectName("removeButton");
-
-        horizontalLayout_buttons->addWidget(removeButton);
-
-        markDoneButton = new QPushButton(rightPanel);
+        markDoneButton = new QPushButton(actionsGroup);
         markDoneButton->setObjectName("markDoneButton");
+        markDoneButton->setMinimumHeight(42);
 
-        horizontalLayout_buttons->addWidget(markDoneButton);
+        actionsGrid->addWidget(markDoneButton, 1, 0, 1, 1);
 
-        saveButton = new QPushButton(rightPanel);
+        removeButton = new QPushButton(actionsGroup);
+        removeButton->setObjectName("removeButton");
+        removeButton->setMinimumHeight(42);
+
+        actionsGrid->addWidget(removeButton, 1, 1, 1, 1);
+
+        saveButton = new QPushButton(actionsGroup);
         saveButton->setObjectName("saveButton");
+        saveButton->setMinimumHeight(42);
 
-        horizontalLayout_buttons->addWidget(saveButton);
+        actionsGrid->addWidget(saveButton, 2, 0, 1, 1);
 
-        loadButton = new QPushButton(rightPanel);
+        loadButton = new QPushButton(actionsGroup);
         loadButton->setObjectName("loadButton");
+        loadButton->setMinimumHeight(42);
 
-        horizontalLayout_buttons->addWidget(loadButton);
-
-
-        verticalLayout_right->addLayout(horizontalLayout_buttons);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
-
-        verticalLayout_right->addItem(verticalSpacer);
+        actionsGrid->addWidget(loadButton, 2, 1, 1, 1);
 
 
-        horizontalLayout_main->addWidget(rightPanel);
+        rightLayout->addWidget(actionsGroup);
+
+        rightSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        rightLayout->addItem(rightSpacer);
+
+        splitter->addWidget(rightPane);
+
+        rootLayout->addWidget(splitter);
 
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 900, 22));
-        MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
@@ -271,14 +363,23 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Taakbeheer", nullptr));
+        appTitle->setText(QCoreApplication::translate("MainWindow", "Taakbeheer", nullptr));
+        tasksGroup->setTitle(QCoreApplication::translate("MainWindow", "Takenlijst", nullptr));
+        searchEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Zoeken\342\200\246", nullptr));
+        showDoneCheck->setText(QCoreApplication::translate("MainWindow", "Toon klaar", nullptr));
+        createGroup->setTitle(QCoreApplication::translate("MainWindow", "Nieuwe taak", nullptr));
         labelTitle->setText(QCoreApplication::translate("MainWindow", "Titel", nullptr));
-        labelDescription->setText(QCoreApplication::translate("MainWindow", "Beschrijving", nullptr));
-        labelPriority->setText(QCoreApplication::translate("MainWindow", "Prioriteit (0-10)", nullptr));
-        labelDueDate->setText(QCoreApplication::translate("MainWindow", "Vervaldatum (JJJJ-MM-DD UU:MM)", nullptr));
+        titleEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Bijv. \342\200\234Verslag afwerken\342\200\235", nullptr));
+        labelDesc->setText(QCoreApplication::translate("MainWindow", "Beschrijving", nullptr));
+        descriptionEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Wat moet er precies gebeuren?", nullptr));
+        labelPrio->setText(QCoreApplication::translate("MainWindow", "Prioriteit", nullptr));
+        labelDue->setText(QCoreApplication::translate("MainWindow", "Vervaldatum", nullptr));
+        dueDateEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "YYYY-MM-DD HH:MM (alleen timed)", nullptr));
+        actionsGroup->setTitle(QCoreApplication::translate("MainWindow", "Acties", nullptr));
         addSimpleButton->setText(QCoreApplication::translate("MainWindow", "Voeg simpele taak toe", nullptr));
         addTimedButton->setText(QCoreApplication::translate("MainWindow", "Voeg timed taak toe", nullptr));
-        removeButton->setText(QCoreApplication::translate("MainWindow", "Verwijderen", nullptr));
         markDoneButton->setText(QCoreApplication::translate("MainWindow", "Markeer klaar", nullptr));
+        removeButton->setText(QCoreApplication::translate("MainWindow", "Verwijderen", nullptr));
         saveButton->setText(QCoreApplication::translate("MainWindow", "Opslaan", nullptr));
         loadButton->setText(QCoreApplication::translate("MainWindow", "Laden", nullptr));
     } // retranslateUi
